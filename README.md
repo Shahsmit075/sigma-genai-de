@@ -13,11 +13,11 @@ An 8-day hands-on bootcamp where you build a **production-grade AI-native Data E
 ```bash
 # 1. Fork this repo (click Fork button on GitHub)
 # 2. Clone YOUR fork
-git clone https://github.com/YOUR-USERNAME/sigma-genai-de.git
+git clone https://github.com/Shahsmit075/sigma-genai-de.git
 cd sigma-genai-de
 
 # 3. Add trainer's repo as upstream
-git remote add upstream https://github.com/devproacademy/sigma-genai-de.git
+git remote add upstream https://github.com/Anilmidna/sigma-genai-de.git
 
 # 4. Install base dependencies
 pip install -r setup/requirements.txt

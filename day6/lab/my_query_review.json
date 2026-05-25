@@ -1,0 +1,35 @@
+{
+  "file": "queries/my_query.sql",
+  "reviewed_at": "2026-05-25T15:23:12.826341",
+  "issues_found": 3,
+  "review": {
+    "issues": [
+      {
+        "severity": "Critical",
+        "category": "Correctness",
+        "title": "Missing filter for transaction status",
+        "line": "WHERE clause",
+        "problem": "The query does not filter transactions by status, which means it will include all transactions, not just completed ones.",
+        "fix": "WHERE dim_customer.customer_id = fact_transactions.customer_id AND fact_transactions.status = 'COMPLETED'"
+      },
+      {
+        "severity": "Medium",
+        "category": "Performance",
+        "title": "Implicit join syntax",
+        "line": "FROM clause",
+        "problem": "Using implicit join syntax can lead to less readable and potentially more error-prone queries.",
+        "fix": "FROM dim_customer JOIN fact_transactions ON dim_customer.customer_id = fact_transactions.customer_id"
+      },
+      {
+        "severity": "Medium",
+        "category": "Readability",
+        "title": "Missing comments",
+        "line": "Entire query",
+        "problem": "The query lacks comments explaining its purpose and logic, making it harder to understand.",
+        "fix": "-- Query to get high spending customer emails and their signup dates\nSELECT customer_name, email, signup_date, SUM(amount) AS total_amount\nFROM dim_customer JOIN fact_transactions ON dim_customer.customer_id = fact_transactions.customer_id\nWHERE dim_customer.customer_id = fact_transactions.customer_id AND fact_transactions.status = 'COMPLETED'\nGROUP BY customer_name, email, signup_date;"
+      }
+    ],
+    "corrected_sql": "-- Query to get high spending customer emails and their signup dates\nSELECT dc.customer_name, dc.email, dc.signup_date, SUM(ft.amount) AS total_amount\nFROM dim_customer dc JOIN fact_transactions ft ON dc.customer_id = ft.customer_id\nWHERE ft.status = 'COMPLETED'\nGROUP BY dc.customer_name, dc.email, dc.signup_date;",
+    "summary": "The query had a critical correctness issue by not filtering completed transactions and used an implicit join syntax. It also lacked comments for readability."
+  }
+}
