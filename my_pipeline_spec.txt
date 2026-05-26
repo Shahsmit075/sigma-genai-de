@@ -1,0 +1,80 @@
+SCENARIO	"Write churn_risk Gold table.Sigma DataTech wants to identify customers at risk of churning before they leave. Build a daily pipeline that reads transaction history, calculates recency/frequency/monetary (RFM) features per customer, flags customers with no transaction in 14 days as `at_risk`, and writes a `churn_risk` table to the Gold layer.
+"	
+PIPELINE SPEC — Fill every section below		
+OBJECTIVE	[ 1–2 sentences: what business problem does this solve? ]	
+→ Your answer	Identify customers who are at risk of churning based on transaction inactivity and generate a daily churn_risk Gold table for CRM and target them with retention campaigns before they completely disengage.	
+DATA SOURCES	[ Source name, format, approximate row count per day ]	
+→ Your answer	"SOURCE DATA:
+Daily customer transaction records received from payment systems and merchant platforms in CSV/Parquet format with approximately 1 million rows per day."	
+BRONZE LAYER	[ Columns to ingest, metadata columns to add, partition strategy ]	
+→ Your answer	"Columns to ingest:
+customer_id
+transaction_id
+transaction_date
+amount
+payment_method
+status
+product_id 
+Metadata columns:
+ingestion_timestamp
+source_file_name(or path)
+
+Partition strategy:
+Partition by transaction_date"	
+SILVER LAYER	[ Exact casts, filter conditions, dedup key, quality halt threshold ]	
+→ Your answer	"Casts:
+amount → decimal(18,2)
+transaction_date → timestamp
+
+Filter conditions:
+status = 'COMPLETED'
+
+Dedup key:
+transaction_id
+
+Quality halt threshold:
+Fail pipeline if null customer_id exceeds 5%"	
+GOLD LAYER	[ Table name, key columns, EXACT business rule formula ]	
+→ Your answer	"Table name:
+churn_risk
+
+Key columns:
+customer_id
+recency_days
+transaction_frequency
+total_spent
+risk_status
+generated_at
+
+Business rule formula:
+at_risk = 1 WHERE MAX(transaction_date) < current_date - 14 days"	
+ERROR HANDLING	[ What happens if source file missing? What if quality check fails? ]	
+→ Your answer	"If source file is missing:
+→ Raise FileNotFoundError
+→ Send SNS alert to #data-engineering channel
+→ ABORT pipeline immediately. Do NOT write partial Bronze. Do NOT proceed to Silver or Gold.
+
+If quality check fails (null customer_id > 5% of total rows):
+→ ABORT at Silver stage
+→ QUARANTINE: write failure record to run_metadata_{run_date}.json with error reason
+→ Do NOT proceed to Gold. Do NOT write any partial churn_risk partition.
+"	
+PERFORMANCE	[ Partitioning strategy, any joins needing broadcast hint or caching ]	
+→ Your answer	"Partitioning strategy:
+All layers (Bronze, Silver, Gold) partitioned by transaction_date.
+Delete partition THEN write — never append (idempotent).
+
+Partition pruning:
+Gold reads Silver WHERE transaction_date >= run_date - INTERVAL 30 DAYS
+→ Reads 30 partitions only, not full table history.
+
+Caching:
+Silver filtered DataFrame (~715K rows, COMPLETED only, last 30 days)
+is CACHED before RFM GROUP BY aggregation to avoid re-scanning same data twice.
+
+Joins:
+Silver layer: merchants dimension (~500 rows) joined on merchant_id
+→ BROADCAST HINT applied to merchants table (small dimension, fits in memory)
+→ Avoids shuffle join on 1M-row transactions table.
+Gold layer: No join — pure customer-level aggregation only.
+"	
