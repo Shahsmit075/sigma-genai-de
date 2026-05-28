@@ -1,0 +1,8 @@
+{
+  "status": "success",
+  "server_running": true,
+  "sandbox_url": "https://sandbox.open-metadata.org",
+  "database_services_count": 0,
+  "tables_ingested_count": 0,
+  "data_quality_tests_count": 0
+}

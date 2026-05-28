@@ -54,10 +54,11 @@ MODEL_ID_LITE = "amazon.nova-lite-v1:0"
 REGION        = "us-east-1"
 
 # ── Paths ─────────────────────────────────────────────────────────────────────
-SCRIPT_DIR      = os.path.dirname(os.path.abspath(__file__))
-OUTPUT_DIR      = os.path.normpath(os.path.join(SCRIPT_DIR, "..", "output"))
-COMPETITIVE_DIR = OUTPUT_DIR   # all sprint outputs go to labs/output/
-CHALLENGE_PATH  = os.path.join(SCRIPT_DIR, "challenge_pipeline.py")
+SCRIPT_DIR       = os.path.dirname(os.path.abspath(__file__))
+OUTPUT_DIR       = os.path.normpath(os.path.join(SCRIPT_DIR, "..", "output"))
+COMPETITIVE_DIR  = OUTPUT_DIR   # all sprint outputs go to labs/output/
+DEVOPS_BRAIN_DIR = os.path.normpath(os.path.join(SCRIPT_DIR, "..", "..", "..", "day8", "lab", "devops_brain"))
+CHALLENGE_PATH   = os.path.join(SCRIPT_DIR, "challenge_pipeline.py")
 
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
@@ -690,7 +691,8 @@ def print_scorecard(checks: list) -> int:
         print(f"\n  {yellow(bold('CONDITIONAL SHIP'))}  Fix the red items above before merging.")
     else:
         verdict = "DOESN'T SHIP"
-        print(f"\n  {red(bold('DOESN\'T SHIP ✗'))}  Too many failures. This PR is not ready.")
+        doesnt_ship_label = red(bold("DOESN'T SHIP ✗"))
+        print(f"\n  {doesnt_ship_label}  Too many failures. This PR is not ready.")
 
     print("=" * 68)
     return score, verdict
