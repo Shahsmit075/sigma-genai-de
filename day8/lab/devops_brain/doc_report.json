@@ -1,6 +1,10 @@
 {
   "sprint": "doc_generator",
+<<<<<<< HEAD
   "generated_at": "2026-05-27T12:49:25.679341+00:00",
+=======
+  "generated_at": "2026-05-27T06:49:25.045680+00:00",
+>>>>>>> 83d5fc253a8457c3903da527641897b01c810c15
   "source_file": "buggy_pipeline.py",
   "source_chars": 8663,
   "source_lines": 258,
@@ -12,6 +16,7 @@
   "token_usage": {
     "step1_annotate": {
       "input": 2486,
+<<<<<<< HEAD
       "output": 2899
     },
     "step2_runbook": {
@@ -24,11 +29,29 @@
     },
     "total_input": 7629,
     "total_output": 4199
+=======
+      "output": 2987
+    },
+    "step2_runbook": {
+      "input": 2644,
+      "output": 715
+    },
+    "step3_design": {
+      "input": 2499,
+      "output": 428
+    },
+    "total_input": 7629,
+    "total_output": 4130
+>>>>>>> 83d5fc253a8457c3903da527641897b01c810c15
   },
   "output_files": {
     "documented_pipeline": "devops_brain/documented_pipeline.py",
     "runbook": "devops_brain/runbook.md",
     "design_doc": "devops_brain/design_doc.md"
   },
+<<<<<<< HEAD
   "student_judgment": "The runbook outlines generic recovery steps like 'check the logs' but fails to specify the exact table names, schemas, or locations of log files for the failing transformation steps."
+=======
+  "student_judgment": "\u2502 causes silent data corruption that a runbook would have to manually troubleshoot"
+>>>>>>> 83d5fc253a8457c3903da527641897b01c810c15
 }

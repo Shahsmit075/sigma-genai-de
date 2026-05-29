@@ -8,7 +8,11 @@
         "max_value": 30
       },
       "meta": {
+<<<<<<< HEAD
         "notes": "After Bronze -> Silver transform, we expect 18-22 rows"
+=======
+        "notes": "Ensure the row count is within the expected range after Bronze -> Silver transform."
+>>>>>>> 83d5fc253a8457c3903da527641897b01c810c15
       }
     },
     {
@@ -17,7 +21,11 @@
         "column": "transaction_id"
       },
       "meta": {
+<<<<<<< HEAD
         "notes": "All transaction_ids must be non-null (nulls were filtered in Bronze)"
+=======
+        "notes": "All transaction_ids must be non-null."
+>>>>>>> 83d5fc253a8457c3903da527641897b01c810c15
       }
     },
     {
@@ -26,7 +34,11 @@
         "column": "amount"
       },
       "meta": {
+<<<<<<< HEAD
         "notes": "All amounts must be >= 0 (negatives were filtered in Bronze)"
+=======
+        "notes": "All amounts must be non-null."
+>>>>>>> 83d5fc253a8457c3903da527641897b01c810c15
       }
     },
     {
@@ -35,7 +47,11 @@
         "column": "status"
       },
       "meta": {
+<<<<<<< HEAD
         "notes": "Status must not be null"
+=======
+        "notes": "All statuses must be non-null."
+>>>>>>> 83d5fc253a8457c3903da527641897b01c810c15
       }
     },
     {
@@ -44,7 +60,11 @@
         "column": "transaction_date"
       },
       "meta": {
+<<<<<<< HEAD
         "notes": "Transaction date must not be null"
+=======
+        "notes": "All transaction dates must be non-null."
+>>>>>>> 83d5fc253a8457c3903da527641897b01c810c15
       }
     },
     {
@@ -54,7 +74,11 @@
         "min_value": 0
       },
       "meta": {
+<<<<<<< HEAD
         "notes": "Amount must be >= 0"
+=======
+        "notes": "All amounts must be greater than or equal to 0."
+>>>>>>> 83d5fc253a8457c3903da527641897b01c810c15
       }
     },
     {
@@ -63,7 +87,11 @@
         "column": "transaction_id"
       },
       "meta": {
+<<<<<<< HEAD
         "notes": "No duplicate transaction_ids should exist in silver"
+=======
+        "notes": "No duplicate transaction_ids should exist."
+>>>>>>> 83d5fc253a8457c3903da527641897b01c810c15
       }
     },
     {
@@ -73,7 +101,11 @@
         "value_set": ["COMPLETED", "FAILED", "PENDING"]
       },
       "meta": {
+<<<<<<< HEAD
         "notes": "Status must be one of COMPLETED, FAILED, PENDING"
+=======
+        "notes": "Status must be one of the allowed values: COMPLETED, FAILED, PENDING."
+>>>>>>> 83d5fc253a8457c3903da527641897b01c810c15
       }
     },
     {
@@ -83,7 +115,11 @@
         "value_set": ["CLEAN", "UNMATCHED"]
       },
       "meta": {
+<<<<<<< HEAD
         "notes": "Quality flag must be either CLEAN or UNMATCHED"
+=======
+        "notes": "Quality flag must be either CLEAN or UNMATCHED."
+>>>>>>> 83d5fc253a8457c3903da527641897b01c810c15
       }
     },
     {
@@ -94,7 +130,11 @@
         "max_value": 5000
       },
       "meta": {
+<<<<<<< HEAD
         "notes": "Amount mean should be between 100 and 5000"
+=======
+        "notes": "The mean of the amounts should be between 100 and 5000."
+>>>>>>> 83d5fc253a8457c3903da527641897b01c810c15
       }
     }
   ],

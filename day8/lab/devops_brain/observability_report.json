@@ -1,12 +1,20 @@
 {
   "sprint": "observability",
+<<<<<<< HEAD
   "generated_at": "2026-05-27T18:30:03.691779",
+=======
+  "generated_at": "2026-05-27T18:01:34.054228",
+>>>>>>> 83d5fc253a8457c3903da527641897b01c810c15
   "evidently_mode": "full",
   "model_used": "amazon.nova-lite-v1:0",
   "token_usage": {
     "morning_report": {
       "input": 401,
+<<<<<<< HEAD
       "output": 379
+=======
+      "output": 361
+>>>>>>> 83d5fc253a8457c3903da527641897b01c810c15
     }
   },
   "silver_quality": {
@@ -57,5 +65,9 @@
     "devops_brain/observability/morning_report.md",
     "devops_brain/observability_report.json"
   ],
+<<<<<<< HEAD
   "student_judgment": "I would escalate the 100% failure rate for Zomato in the Gold layer, as a merchant reporting zero successful transactions indicates either a critical pipeline bug or a live transaction outage before the dashboard refreshes."
+=======
+  "student_judgment": "Any increase in the number of FAILED transactions in the Silver Layer.**"
+>>>>>>> 83d5fc253a8457c3903da527641897b01c810c15
 }

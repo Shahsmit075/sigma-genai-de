@@ -17,7 +17,11 @@ jobs:
         python-version: [3.10]
 
     steps:
+<<<<<<< HEAD
       # Checkout the repository code to run the CI checks
+=======
+      # Checkout the repository code to make it available for subsequent steps
+>>>>>>> 83d5fc253a8457c3903da527641897b01c810c15
       - name: Checkout code
         uses: actions/checkout@v4
 
@@ -36,7 +40,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pip-
 
+<<<<<<< HEAD
       # Install the required Python dependencies for the project
+=======
+      # Install the required Python dependencies
+>>>>>>> 83d5fc253a8457c3903da527641897b01c810c15
       - name: Install dependencies
         run: pip install duckdb pytest pytest-cov ruff pandas
 
@@ -48,7 +56,11 @@ jobs:
       - name: Set up local DuckDB
         run: python day8/lab/0_setup_duckdb.py
 
+<<<<<<< HEAD
       # Run the pytest suite to validate the pipeline functions
+=======
+      # Run the pytest suite to verify the pipeline functions
+>>>>>>> 83d5fc253a8457c3903da527641897b01c810c15
       - name: Run pytest
         run: pytest day8/lab/devops_brain/test_pipeline.py -v --tb=short
 

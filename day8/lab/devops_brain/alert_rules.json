@@ -8,18 +8,31 @@
       "recommended_action": "Investigate and restart the pipeline immediately."
     },
     {
+<<<<<<< HEAD
       "name": "quality_threshold_breach",
       "condition": "Data quality percentage is below 99.9%",
       "threshold": "99.9",
       "message": "Data quality has fallen below the required 99.9% threshold.",
       "recommended_action": "Investigate and resolve data quality issues immediately."
+=======
+      "name": "data_quality_breach",
+      "condition": "Data quality percentage is below 99.9%",
+      "threshold": "99.9",
+      "message": "Data quality has fallen below the 99.9% threshold, risking erroneous financial reports.",
+      "recommended_action": "Check data quality issues and correct them as a priority."
+>>>>>>> 83d5fc253a8457c3903da527641897b01c810c15
     },
     {
       "name": "row_count_out_of_bounds",
       "condition": "Row count is outside the bounds of 17 to 25",
       "threshold": "17, 25",
+<<<<<<< HEAD
       "message": "The row count is outside the expected bounds of 17 to 25.",
       "recommended_action": "Investigate the cause of the row count being outside the expected bounds."
+=======
+      "message": "The row count is outside the expected bounds of 17 to 25, affecting data completeness.",
+      "recommended_action": "Investigate the cause of the row count being out of bounds."
+>>>>>>> 83d5fc253a8457c3903da527641897b01c810c15
     }
   ],
   "WARNING": [
@@ -27,6 +40,7 @@
       "name": "runtime_approaching_limit",
       "condition": "Pipeline runtime is approaching the 120-minute limit",
       "threshold": "120",
+<<<<<<< HEAD
       "message": "The pipeline runtime is approaching the 120-minute limit.",
       "recommended_action": "Monitor the pipeline runtime and optimize if necessary."
     },
@@ -43,10 +57,29 @@
       "threshold": "30",
       "message": "One merchant's failure rate has spiked above 30%.",
       "recommended_action": "Investigate and resolve the issue affecting the merchant."
+=======
+      "message": "The pipeline runtime is approaching the 120-minute limit, which may delay the dashboard update.",
+      "recommended_action": "Optimize the pipeline to reduce runtime."
+    },
+    {
+      "name": "data_quality_slightly_below_threshold",
+      "condition": "Data quality percentage is slightly below 99.9%",
+      "threshold": "99.85",
+      "message": "Data quality is slightly below the 99.9% threshold, which may lead to minor inaccuracies.",
+      "recommended_action": "Monitor data quality and identify the cause of the slight drop."
+    },
+    {
+      "name": "merchant_failure_rate_spike",
+      "condition": "One merchant's failure rate spikes above 30%",
+      "threshold": "30",
+      "message": "A merchant's failure rate has spiked above 30%, which may indicate a processing issue.",
+      "recommended_action": "Investigate the cause of the failure rate spike for the affected merchant."
+>>>>>>> 83d5fc253a8457c3903da527641897b01c810c15
     }
   ],
   "INFO": [
     {
+<<<<<<< HEAD
       "name": "new_payment_method",
       "condition": "A new payment method is detected in the data",
       "threshold": "N/A",
@@ -59,6 +92,20 @@
       "threshold": "17, 25",
       "message": "The daily row count is near the bounds of 17 to 25.",
       "recommended_action": "Monitor the row count to ensure it remains within the expected bounds."
+=======
+      "name": "new_payment_method_detected",
+      "condition": "A new payment method is detected in the data",
+      "threshold": "new_payment_method",
+      "message": "A new payment method has been detected in the data.",
+      "recommended_action": "Verify the new payment method and update the system if necessary."
+    },
+    {
+      "name": "row_count_near_bounds",
+      "condition": "Daily row count is near the bounds of 17 to 25",
+      "threshold": "17, 25",
+      "message": "The daily row count is near the bounds of 17 to 25, but within acceptable limits.",
+      "recommended_action": "Monitor the row count to ensure it remains within the bounds."
+>>>>>>> 83d5fc253a8457c3903da527641897b01c810c15
     }
   ]
 }

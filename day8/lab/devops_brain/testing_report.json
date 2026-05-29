@@ -1,6 +1,10 @@
 {
   "sprint": "testing_sprint",
+<<<<<<< HEAD
   "generated_at": "2026-05-27T12:49:50.229042+00:00",
+=======
+  "generated_at": "2026-05-27T10:22:49.917732+00:00",
+>>>>>>> 83d5fc253a8457c3903da527641897b01c810c15
   "models_used": {
     "pytest_suite": "amazon.nova-pro-v1:0",
     "ge_suite": "amazon.nova-lite-v1:0"
@@ -8,22 +12,37 @@
   "token_usage": {
     "step1_pytest": {
       "input": 1821,
+<<<<<<< HEAD
       "output": 1326
+=======
+      "output": 1028
+>>>>>>> 83d5fc253a8457c3903da527641897b01c810c15
     },
     "step2_ge": {
       "input": 586,
       "output": 785
     },
     "total_input": 2407,
+<<<<<<< HEAD
     "total_output": 2111
+=======
+    "total_output": 1813
+>>>>>>> 83d5fc253a8457c3903da527641897b01c810c15
   },
   "pytest": {
     "file": "devops_brain/test_pipeline.py",
     "tests_generated": 9,
+<<<<<<< HEAD
     "passed": 0,
     "failed": 0,
     "errors": 2,
     "all_green": false
+=======
+    "passed": 9,
+    "failed": 0,
+    "errors": 0,
+    "all_green": true
+>>>>>>> 83d5fc253a8457c3903da527641897b01c810c15
   },
   "great_expectations": {
     "file": "devops_brain/ge_expectations.json",
@@ -86,5 +105,9 @@
       "total": 10
     }
   },
+<<<<<<< HEAD
   "student_judgment": "It is a TEST bug because the generated tests used an outdated schema version."
+=======
+  "student_judgment": "test_null_transaction_id_filtered"
+>>>>>>> 83d5fc253a8457c3903da527641897b01c810c15
 }

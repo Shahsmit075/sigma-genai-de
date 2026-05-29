@@ -14,11 +14,15 @@ bucket = "sigma-datatech-pipeline-prod"
 BRONZE_TABLE = "bronze_transactions"
 SILVER_TABLE = "silver_transactions"
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 83d5fc253a8457c3903da527641897b01c810c15
 def get_connection() -> duckdb.DuckDBPyConnection:
     """Establishes and returns a connection to the DuckDB database.
 
     Returns:
+<<<<<<< HEAD
         duckdb.DuckDBPyConnection: The database connection.
     """
     return duckdb.connect(DB_PATH)
@@ -29,6 +33,17 @@ def setup_tables(con: duckdb.DuckDBPyConnection) -> None:
 
     Args:
         con (duckdb.DuckDBPyConnection): The database connection.
+=======
+        duckdb.DuckDBPyConnection: A connection object to the DuckDB database.
+    """
+    return duckdb.connect(DB_PATH)
+
+def setup_tables(con: duckdb.DuckDBPyConnection) -> None:
+    """Sets up the necessary tables in the DuckDB database.
+
+    Args:
+        con (duckdb.DuckDBPyConnection): The database connection object.
+>>>>>>> 83d5fc253a8457c3903da527641897b01c810c15
     """
     con.execute("""
         CREATE TABLE IF NOT EXISTS bronze_transactions (
@@ -89,12 +104,19 @@ def setup_tables(con: duckdb.DuckDBPyConnection) -> None:
         )
     """)
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 83d5fc253a8457c3903da527641897b01c810c15
 def load_merchants(con: duckdb.DuckDBPyConnection) -> None:
     """Loads merchant data into the merchants table.
 
     Args:
+<<<<<<< HEAD
         con (duckdb.DuckDBPyConnection): The database connection.
+=======
+        con (duckdb.DuckDBPyConnection): The database connection object.
+>>>>>>> 83d5fc253a8457c3903da527641897b01c810c15
     """
     for m in MERCHANTS:
         try:
@@ -105,13 +127,21 @@ def load_merchants(con: duckdb.DuckDBPyConnection) -> None:
         except:
             pass  # BUG: Bare except clause
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 83d5fc253a8457c3903da527641897b01c810c15
 def load_bronze(con: duckdb.DuckDBPyConnection, transactions: list) -> None:
     """Loads transaction data into the bronze_transactions table.
 
     Args:
+<<<<<<< HEAD
         con (duckdb.DuckDBPyConnection): The database connection.
         transactions (list): List of transaction dictionaries.
+=======
+        con (duckdb.DuckDBPyConnection): The database connection object.
+        transactions (list): A list of transaction dictionaries.
+>>>>>>> 83d5fc253a8457c3903da527641897b01c810c15
     """
     for txn in transactions:
         con.execute(
@@ -122,6 +152,7 @@ def load_bronze(con: duckdb.DuckDBPyConnection, transactions: list) -> None:
         )
     print(f"Bronze loaded: {len(transactions)} records")
 
+<<<<<<< HEAD
 
 def get_merchants_by_category(con: duckdb.DuckDBPyConnection, category: str) -> list:
     """Retrieves merchants by category.
@@ -146,6 +177,35 @@ def transform_bronze_to_silver(transactions: list, merchants: list) -> list:
 
     Returns:
         list: List of transformed silver transaction dictionaries.
+=======
+def get_merchants_by_category(con: duckdb.DuckDBPyConnection, category: str) -> list:
+    """Retrieves merchants by category from the merchants table.
+
+    Args:
+        con (duckdb.DuckDBPyConnection): The database connection object.
+        category (str): The category to filter merchants by.
+
+    Returns:
+        list: A list of merchant records matching the category.
+
+    Raises:
+        ValueError: If the category is not a string.
+    """
+    if not isinstance(category, str):  # BUG: Missing null check
+        raise ValueError("Category must be a string")
+    query = f"SELECT * FROM merchants WHERE category = '{category}'"  # BUG: SQL injection risk
+    return con.execute(query).fetchall()
+
+def transform_bronze_to_silver(transactions: list, merchants: list) -> list:
+    """Transforms bronze transactions into silver transactions.
+
+    Args:
+        transactions (list): A list of bronze transaction dictionaries.
+        merchants (list): A list of merchant dictionaries.
+
+    Returns:
+        list: A list of transformed silver transaction dictionaries.
+>>>>>>> 83d5fc253a8457c3903da527641897b01c810c15
     """
     from collections import defaultdict
     merchant_map = {m["merchant_id"]: m for m in merchants}
@@ -170,7 +230,11 @@ def transform_bronze_to_silver(transactions: list, merchants: list) -> list:
             city = merchant["city"]
             quality_flag = "CLEAN"
         except:
+<<<<<<< HEAD
             pass
+=======
+            pass  # BUG: Bare except clause
+>>>>>>> 83d5fc253a8457c3903da527641897b01c810c15
 
         row = {
             "transaction_id": txn["transaction_id"],
@@ -188,13 +252,21 @@ def transform_bronze_to_silver(transactions: list, merchants: list) -> list:
         silver.append(row)
     return silver
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 83d5fc253a8457c3903da527641897b01c810c15
 def load_silver(con: duckdb.DuckDBPyConnection, silver_rows: list) -> None:
     """Loads silver transactions into the silver_transactions table.
 
     Args:
+<<<<<<< HEAD
         con (duckdb.DuckDBPyConnection): The database connection.
         silver_rows (list): List of silver transaction dictionaries.
+=======
+        con (duckdb.DuckDBPyConnection): The database connection object.
+        silver_rows (list): A list of silver transaction dictionaries.
+>>>>>>> 83d5fc253a8457c3903da527641897b01c810c15
     """
     for row in silver_rows:
         con.execute(
@@ -207,6 +279,7 @@ def load_silver(con: duckdb.DuckDBPyConnection, silver_rows: list) -> None:
         )
     print(f"Silver loaded: {len(silver_rows)} records")
 
+<<<<<<< HEAD
 
 def compute_merchant_performance(silver_rows: list) -> list:
     """Computes merchant performance metrics.
@@ -216,6 +289,16 @@ def compute_merchant_performance(silver_rows: list) -> list:
 
     Returns:
         list: List of merchant performance dictionaries.
+=======
+def compute_merchant_performance(silver_rows: list) -> list:
+    """Computes merchant performance metrics from silver transactions.
+
+    Args:
+        silver_rows (list): A list of silver transaction dictionaries.
+
+    Returns:
+        list: A list of merchant performance dictionaries.
+>>>>>>> 83d5fc253a8457c3903da527641897b01c810c15
     """
     from collections import defaultdict
     agg = defaultdict(lambda: {"revenue": 0.0, "total": 0, "failed": 0, "name": "", "category": "", "city": ""})
@@ -243,6 +326,7 @@ def compute_merchant_performance(silver_rows: list) -> list:
         })
     return results
 
+<<<<<<< HEAD
 
 def compute_daily_summary(silver_rows: list) -> list:
     """Computes daily summary metrics.
@@ -252,6 +336,16 @@ def compute_daily_summary(silver_rows: list) -> list:
 
     Returns:
         list: List of daily summary dictionaries.
+=======
+def compute_daily_summary(silver_rows: list) -> list:
+    """Computes daily summary metrics from silver transactions.
+
+    Args:
+        silver_rows (list): A list of silver transaction dictionaries.
+
+    Returns:
+        list: A list of daily summary dictionaries.
+>>>>>>> 83d5fc253a8457c3903da527641897b01c810c15
     """
     from collections import defaultdict
     agg = defaultdict(lambda: {"revenue": 0.0, "total": 0, "failed": 0, "customers": set(), "merchants": set()})
@@ -277,14 +371,23 @@ def compute_daily_summary(silver_rows: list) -> list:
         })
     return results
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 83d5fc253a8457c3903da527641897b01c810c15
 def load_gold(con: duckdb.DuckDBPyConnection, merchant_perf: list, daily_summary: list) -> None:
     """Loads merchant performance and daily summary data into gold tables.
 
     Args:
+<<<<<<< HEAD
         con (duckdb.DuckDBPyConnection): The database connection.
         merchant_perf (list): List of merchant performance dictionaries.
         daily_summary (list): List of daily summary dictionaries.
+=======
+        con (duckdb.DuckDBPyConnection): The database connection object.
+        merchant_perf (list): A list of merchant performance dictionaries.
+        daily_summary (list): A list of daily summary dictionaries.
+>>>>>>> 83d5fc253a8457c3903da527641897b01c810c15
     """
     today = datetime.date.today().isoformat()
     for row in merchant_perf:
@@ -302,7 +405,10 @@ def load_gold(con: duckdb.DuckDBPyConnection, merchant_perf: list, daily_summary
         )
     print(f"Gold loaded: {len(merchant_perf)} merchant rows, {len(daily_summary)} daily rows")
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 83d5fc253a8457c3903da527641897b01c810c15
 def main() -> None:
     """Main function to run the data pipeline."""
     all_transactions = TRANSACTIONS_CLEAN + TRANSACTIONS_DIRTY
@@ -318,11 +424,17 @@ def main() -> None:
     print(f"Pipeline complete. {len(silver_rows)} silver, {len(merchant_perf)} merchant, {len(daily_summary)} daily.")
     con.close()
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 83d5fc253a8457c3903da527641897b01c810c15
 def run_pipeline() -> None:
     """Runs the data pipeline."""
     main()
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 83d5fc253a8457c3903da527641897b01c810c15
 if __name__ == "__main__":
     run_pipeline()

@@ -33,8 +33,13 @@
     "discount_amount": "float"
   },
   "new_columns_detected": [
+<<<<<<< HEAD
     "payment_gateway",
     "discount_amount"
+=======
+    "discount_amount",
+    "payment_gateway"
+>>>>>>> 83d5fc253a8457c3903da527641897b01c810c15
   ],
   "removed_columns_detected": [],
   "type_changes_detected": {},
@@ -55,6 +60,11 @@
   },
   "model_used": "amazon.nova-lite-v1:0",
   "tokens_in": 848,
+<<<<<<< HEAD
   "tokens_out": 1052,
   "generated_at": "2026-05-26T11:57:14.081879+00:00"
+=======
+  "tokens_out": 1240,
+  "generated_at": "2026-05-26T10:35:17.618962+00:00"
+>>>>>>> 83d5fc253a8457c3903da527641897b01c810c15
 }

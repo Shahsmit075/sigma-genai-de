@@ -26,6 +26,10 @@ Status distribution:
   PENDING         1
 
 Columns with value drift (Bronze vs Silver):
+<<<<<<< HEAD
   transaction_id
   merchant_id
   customer_id
+=======
+  None detected
+>>>>>>> 83d5fc253a8457c3903da527641897b01c810c15
