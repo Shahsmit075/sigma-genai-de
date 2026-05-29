@@ -1,0 +1,12 @@
+[
+  {
+    "q": "Which payment methods are growing fastest this month compared to last month? Show percentage growth.",
+    "sql": "SELECT \n  payment_method, \n  COALESCE(\n    (\n      (SUM(CASE \n             WHEN transaction_date >= DATE_TRUNC('month', CURRENT_DATE - INTERVAL '1 month') \n              AND transaction_date < DATE_TRUNC('month', CURRENT_DATE) \n           THEN amount \n           ELSE 0 \n         END) \n       - \n       SUM(CASE \n             WHEN transaction_date >= DATE_TRUNC('month', CURRENT_DATE - INTERVAL '2 months') \n              AND transaction_date < DATE_TRUNC('month', CURRENT_DATE - INTERVAL '1 month') \n           THEN amount \n           ELSE 0 \n         END)\n      ) \n      / \n      NULLIF(\n        SUM(CASE \n               WHEN transaction_date >= DATE_TRUNC('month', CURRENT_DATE - INTERVAL '2 months') \n                AND transaction_date < DATE_TRUNC('month', CURRENT_DATE - INTERVAL '1 month') \n             THEN amount \n             ELSE 0 \n           END), \n        0\n      )\n    ) * 100.0, \n    0\n  ) AS growth_percentage \nFROM \n  silver_transactions \nWHERE \n  transaction_date >= DATE_TRUNC('month', CURRENT_DATE - INTERVAL '2 months') \n  AND transaction_date < DATE_TRUNC('month', CURRENT_DATE) \n  AND payment_method IS NOT NULL \n  AND amount IS NOT NULL \nGROUP BY \n  payment_method \nORDER BY \n  growth_percentage DESC;",
+    "rounds": 2
+  },
+  {
+    "q": "Which 5 merchants have the highest refund rate? Show refund count and total transaction count.",
+    "sql": "SELECT m.merchant_id, m.merchant_name, COUNT(CASE WHEN st.status = 'REFUNDED' THEN 1 END) AS refund_count, COUNT(st.transaction_id) AS total_transaction_count, (COUNT(CASE WHEN st.status = 'REFUNDED' THEN 1 END) * 100.0 / NULLIF(COUNT(st.transaction_id), 0)) AS refund_rate_pct FROM merchants m JOIN silver_transactions st ON m.merchant_id = st.merchant_id WHERE st.quality_flag = 'PASS' AND st.transaction_date BETWEEN DATE '2023-01-01' AND DATE '2023-12-31' AND st.transaction_id IS NOT NULL AND st.status IS NOT NULL AND st.merchant_id IS NOT NULL GROUP BY m.merchant_id, m.merchant_name ORDER BY refund_rate_pct DESC LIMIT 5;",
+    "rounds": 3
+  }
+]

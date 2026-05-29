@@ -1,0 +1,36 @@
+[
+  {
+    "question": "Which payment methods are growing fastest this month compared to last month? Show percentage growth.",
+    "final_sql": "SELECT \n  payment_method, \n  COALESCE(\n    (\n      (SUM(CASE \n             WHEN transaction_date >= DATE_TRUNC('month', CURRENT_DATE - INTERVAL '1 month') \n              AND transaction_date < DATE_TRUNC('month', CURRENT_DATE) \n           THEN amount \n           ELSE 0 \n         END) \n       - \n       SUM(CASE \n             WHEN transaction_date >= DATE_TRUNC('month', CURRENT_DATE - INTERVAL '2 months') \n              AND transaction_date < DATE_TRUNC('month', CURRENT_DATE - INTERVAL '1 month') \n           THEN amount \n           ELSE 0 \n         END)\n      ) \n      / \n      NULLIF(\n        SUM(CASE \n               WHEN transaction_date >= DATE_TRUNC('month', CURRENT_DATE - INTERVAL '2 months') \n                AND transaction_date < DATE_TRUNC('month', CURRENT_DATE - INTERVAL '1 month') \n             THEN amount \n             ELSE 0 \n           END), \n        0\n      )\n    ) * 100.0, \n    0\n  ) AS growth_percentage \nFROM \n  silver_transactions \nWHERE \n  transaction_date >= DATE_TRUNC('month', CURRENT_DATE - INTERVAL '2 months') \n  AND transaction_date < DATE_TRUNC('month', CURRENT_DATE) \n  AND payment_method IS NOT NULL \n  AND amount IS NOT NULL \nGROUP BY \n  payment_method \nORDER BY \n  growth_percentage DESC;",
+    "review_rounds": 2,
+    "approved": true,
+    "result_preview": "EXECUTION ERROR: Binder Error: Cannot compare values of type VARCHAR and type DATE - an explicit cast is required\nLINE 35:   transaction_date >= DATE_TRUNC('month', CURRENT_DATE - INTERVAL '2 months') \n  AND transaction_date < DATE_TRUNC('month', CURRENT_DATE) \n  AND payment_method IS NOT NULL \n  AN",
+    "answer": "Query failed: Binder Error: Cannot compare values of type VARCHAR and type DATE - an explicit cast is required\nLINE 35:   transaction_date >= DATE_TRUNC('month', CURRENT_DATE - INTERVAL '2 months') \n  AND transaction_date < DATE_TRUNC('month', CURRENT_DATE) \n  AND payment_method IS NOT NULL \n  AND amount IS NOT NULL \nGROUP BY \n  payment_method \nORDER BY \n  growth_percentage DESC;...\n                            ^",
+    "trace": [
+      "[Generator] Round 1: Generated SQL (1024 chars)",
+      "[Reviewer] Round 1: REJECTED",
+      "[Generator] Round 2: Generated SQL (1229 chars)",
+      "[Reviewer] Round 2: APPROVED",
+      "[Executor] SQL ran successfully. 0 rows."
+    ],
+    "student_judgment": "It caught the missing WHERE clause in the UPDATE statement, which prevented a catastrophic rewrite of the entire database table"
+  },
+  {
+    "question": "Which 5 merchants have the highest refund rate? Show refund count and total transaction count.",
+    "final_sql": "SELECT m.merchant_id, m.merchant_name, COUNT(CASE WHEN st.status = 'REFUNDED' THEN 1 END) AS refund_count, COUNT(st.transaction_id) AS total_transaction_count, (COUNT(CASE WHEN st.status = 'REFUNDED' THEN 1 END) * 100.0 / NULLIF(COUNT(st.transaction_id), 0)) AS refund_rate_pct FROM merchants m JOIN silver_transactions st ON m.merchant_id = st.merchant_id WHERE st.quality_flag = 'PASS' AND st.transaction_date BETWEEN DATE '2023-01-01' AND DATE '2023-12-31' AND st.transaction_id IS NOT NULL AND st.status IS NOT NULL AND st.merchant_id IS NOT NULL GROUP BY m.merchant_id, m.merchant_name ORDER BY refund_rate_pct DESC LIMIT 5;",
+    "review_rounds": 3,
+    "approved": false,
+    "result_preview": "EXECUTION ERROR: Binder Error: Cannot mix values of type VARCHAR and DATE in BETWEEN clause - an explicit cast is required\nLINE 1: ..._flag = 'PASS' AND st.transaction_date BETWEEN DATE '2023-01-01' AND DATE '202...\n                                                  ^",
+    "answer": "Query failed: Binder Error: Cannot mix values of type VARCHAR and DATE in BETWEEN clause - an explicit cast is required\nLINE 1: ..._flag = 'PASS' AND st.transaction_date BETWEEN DATE '2023-01-01' AND DATE '202...\n                                                  ^",
+    "trace": [
+      "[Generator] Round 1: Generated SQL (649 chars)",
+      "[Reviewer] Round 1: REJECTED",
+      "[Generator] Round 2: Generated SQL (662 chars)",
+      "[Reviewer] Round 2: REJECTED",
+      "[Generator] Round 3: Generated SQL (629 chars)",
+      "[Reviewer] Round 3: REJECTED",
+      "[Executor] SQL ran successfully. 0 rows."
+    ],
+    "student_judgment": "It caught the missing WHERE clause in the UPDATE statement, which prevented a catastrophic rewrite of the entire database table"
+  }
+]
