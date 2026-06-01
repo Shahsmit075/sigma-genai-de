@@ -1,0 +1,176 @@
+{
+  "pattern": "sequential_pipeline",
+  "timestamp": "2026-06-01T18:52:50.703866",
+  "input_file": {
+    "filename": "transactions_raw.csv",
+    "row_count": 500,
+    "columns": [
+      "transaction_id",
+      "merchant_name",
+      "category",
+      "amount",
+      "currency",
+      "transaction_date",
+      "status",
+      "customer_id",
+      "payment_method",
+      "merchant_city"
+    ],
+    "sample_issues": [
+      "4 blank transaction_ids",
+      "7 null amounts",
+      "3 negative amounts",
+      "2 invalid dates",
+      "1 unknown currency"
+    ]
+  },
+  "stages": [
+    {
+      "completeness_percentage": 95.6,
+      "key_issues": [
+        "4 blank transaction_ids",
+        "7 null amounts",
+        "3 negative amounts",
+        "2 invalid dates",
+        "1 unknown currency"
+      ],
+      "recommended_next_action": "Perform data cleaning to handle blank transaction_ids, null and negative amounts, invalid dates, and unknown currency before proceeding to the next stage.",
+      "pass_to_next": {
+        "filename": "transactions_raw.csv",
+        "row_count": 500,
+        "columns": [
+          "transaction_id",
+          "merchant_name",
+          "category",
+          "amount",
+          "currency",
+          "transaction_date",
+          "status",
+          "customer_id",
+          "payment_method",
+          "merchant_city"
+        ],
+        "sample_issues": [
+          "4 blank transaction_ids",
+          "7 null amounts",
+          "3 negative amounts",
+          "2 invalid dates",
+          "1 unknown currency"
+        ],
+        "completeness_percentage": 95.6
+      },
+      "_stage": "Profile",
+      "_agent": "Profiler Agent",
+      "_timestamp": "2026-06-01T18:52:46.126336"
+    },
+    {
+      "findings": [
+        {
+          "rule": "No blank transaction_ids",
+          "issue": "4 blank transaction_ids",
+          "classification": "block-load",
+          "description": "Transactions must have a unique identifier to be processed. Blank transaction_ids will cause failures in downstream processes."
+        },
+        {
+          "rule": "No negative amounts",
+          "issue": "3 negative amounts",
+          "classification": "quarantine",
+          "description": "Negative amounts are not valid for transactions. These records should be reviewed and corrected if possible."
+        },
+        {
+          "rule": "Valid dates",
+          "issue": "2 invalid dates",
+          "classification": "quarantine",
+          "description": "Invalid dates can lead to incorrect analysis and reporting. These records should be reviewed and corrected if possible."
+        }
+      ],
+      "pass_to_next": {
+        "filename": "transactions_raw.csv",
+        "row_count": 500,
+        "columns": [
+          "transaction_id",
+          "merchant_name",
+          "category",
+          "amount",
+          "currency",
+          "transaction_date",
+          "status",
+          "customer_id",
+          "payment_method",
+          "merchant_city"
+        ],
+        "sample_issues": [
+          "4 blank transaction_ids",
+          "7 null amounts",
+          "3 negative amounts",
+          "2 invalid dates",
+          "1 unknown currency"
+        ],
+        "completeness_percentage": 95.6,
+        "quality_checks": {
+          "no_blank_transaction_ids": {
+            "status": "block-load",
+            "description": "Ensure all transaction_ids are filled."
+          },
+          "no_negative_amounts": {
+            "status": "quarantine",
+            "description": "Review and correct negative amounts if possible."
+          },
+          "valid_dates": {
+            "status": "quarantine",
+            "description": "Review and correct invalid dates if possible."
+          }
+        }
+      },
+      "_stage": "Validate",
+      "_agent": "Quality Agent",
+      "_timestamp": "2026-06-01T18:52:48.832754"
+    },
+    {
+      "load_decision": "quarantined_partial",
+      "findings": "The file has several quality issues, including blank transaction_ids, null and negative amounts, and invalid dates, which need to be addressed before loading.",
+      "pass_to_next": {
+        "filename": "transactions_raw.csv",
+        "row_count": 500,
+        "columns": [
+          "transaction_id",
+          "merchant_name",
+          "category",
+          "amount",
+          "currency",
+          "transaction_date",
+          "status",
+          "customer_id",
+          "payment_method",
+          "merchant_city"
+        ],
+        "sample_issues": [
+          "4 blank transaction_ids",
+          "7 null amounts",
+          "3 negative amounts",
+          "2 invalid dates",
+          "1 unknown currency"
+        ],
+        "completeness_percentage": 95.6,
+        "quality_checks": {
+          "no_blank_transaction_ids": {
+            "status": "block-load",
+            "description": "Ensure all transaction_ids are filled."
+          },
+          "no_negative_amounts": {
+            "status": "quarantine",
+            "description": "Review and correct negative amounts if possible."
+          },
+          "valid_dates": {
+            "status": "quarantine",
+            "description": "Review and correct invalid dates if possible."
+          }
+        }
+      },
+      "_stage": "LoadDecision",
+      "_agent": "Loader Agent",
+      "_timestamp": "2026-06-01T18:52:50.701230"
+    }
+  ],
+  "final_decision": "quarantined_partial"
+}
