@@ -1,0 +1,20 @@
+{
+  "final_status": "success",
+  "total_attempts": 2,
+  "healing_log": [
+    {
+      "attempt": 1,
+      "success": false,
+      "error": "KeyError: 'amunt'",
+      "diagnosis": "Column typo",
+      "from_memory": false
+    },
+    {
+      "attempt": 2,
+      "success": true,
+      "error": null,
+      "diagnosis": null,
+      "from_memory": true
+    }
+  ]
+}
