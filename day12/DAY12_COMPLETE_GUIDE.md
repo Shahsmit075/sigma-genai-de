@@ -98,8 +98,8 @@ sequenceDiagram
     Note over SF: silenty loads 0 rows due to field & date format mismatch
     
     Note over R,SF: Healing & Recovery Flow
-    R->>K: get_kinesis_records (AT_TIMESTAMP = 02:11:07)
-    K-->>R: Returns raw records (v2 format)
+    R->>S3: get_kinesis_records (Prefix = bronze/disaster/)
+    S3-->>R: Returns raw records from files (v2 format)
     Note over R: fix_record() maps:<br/>merchant_nm -> merchant_name<br/>DD-MM-YYYY -> YYYY-MM-DD
     R->>R: Run quality check (Checks for null transaction_id)
     alt Record is Clean
@@ -120,7 +120,7 @@ To prevent a single language model from becoming overloaded or confused, the sys
 | **Supervisor** | [instructions](file:///Users/as-mac-1320/Downloads/gen-ai-github/sigma-genai-de/day12/lab/agents/supervisor_instructions.md) | None (delegates via MCP tools) | Orchestrates the workflow, routes findings, evaluates sub-agent outputs, and self-corrects if recovery gaps are found. |
 | **Forensics** | [instructions](file:///Users/as-mac-1320/Downloads/gen-ai-github/sigma-genai-de/day12/lab/agents/forensics_instructions.md) | `check_cloudwatch_metrics`, `query_snowflake` | Investigates resource metrics, lists version logs, compares record input/output counts, and identifies the exact failure window and root cause. |
 | **Impact** | [instructions](file:///Users/as-mac-1320/Downloads/gen-ai-github/sigma-genai-de/day12/lab/agents/impact_instructions.md) | `query_snowflake`, Knowledge Base Query | Calculates the exact revenue (GMV) loss and queries SLA contracts (RAG) to confirm if the incident breached contractual agreements. |
-| **Recovery** | [instructions](file:///Users/as-mac-1320/Downloads/gen-ai-github/sigma-genai-de/day12/lab/agents/recovery_instructions.md) | `get_kinesis_records`, `load_to_snowflake`, `quarantine_rows` | Replays records from the Kinesis stream at the failure timestamp, fixes schema anomalies, filters invalid data, and MERGEs clean rows into Snowflake. |
+| **Recovery** | [instructions](file:///Users/as-mac-1320/Downloads/gen-ai-github/sigma-genai-de/day12/lab/agents/recovery_instructions.md) | `get_kinesis_records`, `load_to_snowflake`, `quarantine_rows` | Reads malformed files from the S3 bronze bucket, fixes schema anomalies, filters invalid data, and MERGEs clean rows into Snowflake. |
 | **Rollback** | [instructions](file:///Users/as-mac-1320/Downloads/gen-ai-github/sigma-genai-de/day12/lab/agents/rollback_instructions.md) | `rollback_lambda_version` | Rolls back the active version of the producer Lambda from v2 to the previous stable version (v1) and pushes test records to verify stability. |
 | **Hardening** | [instructions](file:///Users/as-mac-1320/Downloads/gen-ai-github/sigma-genai-de/day12/lab/agents/hardening_instructions.md) | `create_cloudwatch_alarm` | Generates and provisions live CloudWatch alarms in the AWS account to ensure instant alerting if this or similar failures happen again. |
 | **Incident Report** | [instructions](file:///Users/as-mac-1320/Downloads/gen-ai-github/sigma-genai-de/day12/lab/agents/incident_report_instructions.md) | `write_incident_report`, `send_sns_alert` | Compiles the collective findings (Root Cause, Timeline, SLA details, and Prevention steps) into a post-mortem report and alerts engineering via SNS. |
@@ -213,7 +213,7 @@ Each tool is a light, modular AWS Lambda function designed to handle a single ac
 | Tool Function | Core AWS API / Client Calls | Output Format |
 |---|---|---|
 | `check_cloudwatch` | CloudWatch (`get_metric_statistics`), Lambda (`list_aliases`, `list_versions_by_function`) | JSON containing version changes, error counts, and traffic logs. |
-| `get_kinesis_records` | Kinesis (`get_shard_iterator`, `get_records`) | JSON list of fixed records, duplicates count, and field fix logs. |
+| `get_kinesis_records` | S3 (`list_objects_v2`, `get_object` from S3 Bronze) | JSON list of fixed records, duplicates count, and field fix logs. |
 | `query_snowflake` | `snowflake.connector` | JSON list of rows (capped to safety limit of 500 rows). |
 | `rollback_lambda_version`| Lambda (`update_alias`), internal Kinesis PutRecords | JSON success message + verification test run logs. |
 | `create_cloudwatch_alarm`| CloudWatch (`put_metric_alarm`) | JSON confirmation indicating the alarm is active. |
@@ -597,7 +597,7 @@ The exact count of corrupted payloads (23 rows) lacking transaction_ids.
 The agent identified that 23 of the 847 missing records had null `transaction_id` keys, indicating a secondary data quality issue unrelated to the schema update.
 
 **Why the agent caught it:**
-The agent called `get_kinesis_records` programmatically, ran verification logic on the records, and filtered out rows missing primary keys during the staging phase of `load_to_snowflake`.
+The agent called the `get_kinesis_records` S3 reader tool programmatically, ran verification logic on the records, and filtered out rows missing primary keys during the staging phase of `load_to_snowflake`.
 
 ---
 
