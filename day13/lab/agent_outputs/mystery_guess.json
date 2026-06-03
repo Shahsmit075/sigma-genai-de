@@ -1,0 +1,7 @@
+{
+  "lab": "2 - Sigma DataTech",
+  "sensitive_columns": "1.  `stg_users.home_lat` & `stg_users.home_lng` (Precise location tracking data under GDPR Article 4)",
+  "hacker_target": "bank_account_number",
+  "gdpr_risk": "stg_users.home_lat,stg_users.home_lng,stg_users.date_of_birth",
+  "timestamp": "2026-06-03T06:52:32.935746+00:00"
+}
