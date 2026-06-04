@@ -1,0 +1,191 @@
+{
+  "checkpoints": [
+    {
+      "id": 1,
+      "name": "IDEMPOTENCY",
+      "status": "PASS",
+<<<<<<< HEAD
+      "evidence": "No violation found",
+      "finding": "All writes use 'overwrite' mode.",
+      "fix": "No changes needed."
+=======
+      "finding": "All write operations use overwrite mode.",
+      "fix": "None required."
+>>>>>>> 83d5fc253a8457c3903da527641897b01c810c15
+    },
+    {
+      "id": 2,
+      "name": "ERROR_HANDLING",
+      "status": "FAIL",
+<<<<<<< HEAD
+      "evidence": "No try/except blocks found around pipeline stages.",
+      "finding": "Bare function calls without error handling.",
+      "fix": "Wrap pipeline stages in try/except blocks to handle potential errors."
+=======
+      "finding": "No try/except blocks around pipeline stages.",
+      "fix": "Wrap each pipeline stage in try/except blocks."
+>>>>>>> 83d5fc253a8457c3903da527641897b01c810c15
+    },
+    {
+      "id": 3,
+      "name": "PARTITION_PRUNING",
+      "status": "PASS",
+<<<<<<< HEAD
+      "evidence": ".where(col('ingestion_timestamp') == run_date) and .where(col('date') == run_date)",
+      "finding": "Filters are present on partition columns.",
+      "fix": "No changes needed."
+=======
+      "finding": "Read operations are filtered by date/partition column.",
+      "fix": "None required."
+>>>>>>> 83d5fc253a8457c3903da527641897b01c810c15
+    },
+    {
+      "id": 4,
+      "name": "ROW_COUNT_LOGGING",
+      "status": "WARN",
+<<<<<<< HEAD
+      "evidence": "No .count() or logging statements found after transformations.",
+      "finding": "No row count logging after transformations.",
+      "fix": "Add logging statements to log row counts after key transformations."
+=======
+      "finding": "No row count logging after transformation stages.",
+      "fix": "Add logging for row counts after each transformation stage."
+>>>>>>> 83d5fc253a8457c3903da527641897b01c810c15
+    },
+    {
+      "id": 5,
+      "name": "BUSINESS_RULES",
+      "status": "PASS",
+<<<<<<< HEAD
+      "evidence": "silver_df.filter(col('status') == 'COMPLETED') and col('status').isin('FAILED')",
+      "finding": "Aggregations are filtered by status='COMPLETED'.",
+      "fix": "No changes needed."
+=======
+      "finding": "Revenue is calculated as SUM(amount) WHERE status='COMPLETED'.",
+      "fix": "None required."
+>>>>>>> 83d5fc253a8457c3903da527641897b01c810c15
+    },
+    {
+      "id": 6,
+      "name": "NULL_HANDLING",
+<<<<<<< HEAD
+      "status": "PASS",
+      "evidence": "transactions_df.filter((col('transaction_id').isNotNull()) & (col('amount') >= 0))",
+      "finding": "Null handling is present using.isNotNull().",
+      "fix": "No changes needed."
+=======
+      "status": "WARN",
+      "finding": "No NULL checks on primary key and critical columns.",
+      "fix": "Add NULL checks on primary key and critical columns."
+>>>>>>> 83d5fc253a8457c3903da527641897b01c810c15
+    },
+    {
+      "id": 7,
+      "name": "BROADCAST_HINT",
+<<<<<<< HEAD
+      "status": "PASS",
+      "evidence": "broadcast(merchants_df)",
+      "finding": "Broadcast hint is used in join operations.",
+      "fix": "No changes needed."
+=======
+      "status": "WARN",
+      "finding": "broadcast() is not used on the merchant dimension join.",
+      "fix": "Use broadcast() on the merchant dimension join."
+>>>>>>> 83d5fc253a8457c3903da527641897b01c810c15
+    },
+    {
+      "id": 8,
+      "name": "HARDCODED_PATHS",
+      "status": "FAIL",
+<<<<<<< HEAD
+      "evidence": "\"s3://smitday7-genai/bronze/\" and \"s3://smitday7-genai/dimensions/merchants.csv\"",
+      "finding": "Hardcoded paths found in the code.",
+      "fix": "Replace hardcoded paths with variables or configuration files."
+=======
+      "finding": "File paths are hardcoded as strings.",
+      "fix": "Use parameters instead of hardcoded file paths."
+>>>>>>> 83d5fc253a8457c3903da527641897b01c810c15
+    },
+    {
+      "id": 9,
+      "name": "SCHEMA_VALIDATION",
+      "status": "WARN",
+<<<<<<< HEAD
+      "evidence": "No schema validation checks found before transformations.",
+      "finding": "Transformations happen without prior schema checks.",
+      "fix": "Add schema validation checks before transformations."
+=======
+      "finding": "No schema validation before transforming.",
+      "fix": "Add schema validation to check expected columns."
+>>>>>>> 83d5fc253a8457c3903da527641897b01c810c15
+    },
+    {
+      "id": 10,
+      "name": "DEDUPLICATION",
+      "status": "PASS",
+<<<<<<< HEAD
+      "evidence": "transactions_dedup_df = (transactions_df.orderBy(col('transaction_id'), col('ingestion_timestamp').desc()).dropDuplicates(['transaction_id']))",
+      "finding": "Deduplication logic is present.",
+      "fix": "No changes needed."
+=======
+      "finding": "Explicit dedup logic on transaction_id is present.",
+      "fix": "None required."
+>>>>>>> 83d5fc253a8457c3903da527641897b01c810c15
+    },
+    {
+      "id": 11,
+      "name": "METADATA_OUTPUT",
+      "status": "PASS",
+<<<<<<< HEAD
+      "evidence": "json.dump(metadata, f) and json.dump(run_metadata, f)",
+      "finding": "Metadata output is written to JSON files.",
+      "fix": "No changes needed."
+=======
+      "finding": "Pipeline writes a run summary JSON at the end.",
+      "fix": "None required."
+>>>>>>> 83d5fc253a8457c3903da527641897b01c810c15
+    },
+    {
+      "id": 12,
+      "name": "IMPORTS",
+      "status": "PASS",
+<<<<<<< HEAD
+      "evidence": "No wildcard imports found.",
+      "finding": "No wildcard imports detected.",
+      "fix": "No changes needed."
+    }
+  ],
+  "summary": {
+    "pass_count": 8,
+    "fail_count": 2,
+    "warn_count": 2,
+    "merge_recommendation": "APPROVE_WITH_CHANGES",
+    "top_3_fixes": [
+      "Add error handling around pipeline stages.",
+      "Replace hardcoded paths with variables or configuration files.",
+      "Add schema validation checks before transformations."
+    ]
+  },
+  "reviewed_file": "pipeline_brain/generated_pipeline.py",
+  "reviewed_at": "2026-05-26T11:56:08.648812+00:00",
+=======
+      "finding": "All imports are present and specific.",
+      "fix": "None required."
+    }
+  ],
+  "summary": {
+    "pass_count": 6,
+    "fail_count": 2,
+    "warn_count": 4,
+    "merge_recommendation": "APPROVE_WITH_CHANGES",
+    "top_3_fixes": [
+      "Wrap each pipeline stage in try/except blocks.",
+      "Add logging for row counts after each transformation stage.",
+      "Use parameters instead of hardcoded file paths."
+    ]
+  },
+  "reviewed_file": "pipeline_brain\\generated_pipeline.py",
+  "reviewed_at": "2026-05-26T11:10:54.020507+00:00",
+>>>>>>> 83d5fc253a8457c3903da527641897b01c810c15
+  "model": "amazon.nova-pro-v1:0"
+}

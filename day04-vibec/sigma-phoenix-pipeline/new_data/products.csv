@@ -1,0 +1,51 @@
+product_id,name,category,price,stock_quantity,is_active
+PROD001,Tata Salt 1kg,Groceries,1169.25,164,True
+PROD002,Aashirvaad Atta 5kg,Personal Care,992.5,257,True
+PROD003,Amul Butter 500g,Home Care,984.34,193,True
+PROD004,Surf Excel 2kg,Beverages,2482.1,161,True
+PROD005,Colgate MaxFresh,Snacks,2083.59,212,True
+PROD006,Dove Soap 6pk,Dairy,1436.53,361,True
+PROD007,Maggi Noodles 12pk,Bakery,2435.33,476,True
+PROD008,Lay's Chips Variety,Frozen Foods,1266.98,472,True
+PROD009,Bisleri Water 24pk,Organic,1950.57,127,True
+PROD010,Red Bull 4pk,Baby Care,913.19,335,True
+PROD011,Amul Gold Milk 1L,Groceries,664.04,396,True
+PROD012,Britannia Bread,Personal Care,1664.99,439,True
+PROD013,Horlicks 500g,Home Care,288.05,331,True
+PROD014,Dettol Handwash,Beverages,806.89,235,True
+PROD015,Pampers Diapers L,Snacks,943.91,77,True
+PROD016,Good Knight Refill,Dairy,773.02,392,True
+PROD017,Parle-G Biscuits,Bakery,541.95,412,True
+PROD018,Tropicana Juice 1L,Frozen Foods,2430.15,281,True
+PROD019,Nescafe Classic 200g,Organic,717.69,94,True
+PROD020,Vim Dish Wash,Baby Care,2070.49,256,False
+PROD021,Vaseline Body Lotion,Groceries,773.1,455,True
+PROD022,Head & Shoulders,Personal Care,332.17,48,True
+PROD023,Ariel 3kg,Home Care,2417.93,450,True
+PROD024,Lipton Tea 250g,Beverages,1702.3,213,False
+PROD025,Kissan Jam 500g,Snacks,2021.24,197,True
+PROD026,MDH Masala Kit,Dairy,1016.71,145,True
+PROD027,Everest Garam Masala,Bakery,1164.23,354,True
+PROD028,Fortune Oil 5L,Frozen Foods,692.3,205,True
+PROD029,Saffola Gold 5L,Organic,2353.72,65,True
+PROD030,Himalaya Face Wash,Baby Care,1205.12,327,True
+PROD031,Mamaearth Shampoo,Groceries,1425.45,478,True
+PROD032,WOW Apple Cider,Personal Care,1636.75,335,True
+PROD033,Organic India Tulsi Tea,Home Care,2278.0,164,True
+PROD034,Patanjali Ghee 1kg,Beverages,335.86,33,False
+PROD035,Nestlé KitKat 12pk,Snacks,795.69,262,True
+PROD036,Cadbury Dairy Milk,Dairy,625.26,285,True
+PROD037,Haldiram Namkeen,Bakery,1161.43,353,False
+PROD038,Bikano Rasgulla,Frozen Foods,1756.39,286,True
+PROD039,Amul Kool,Organic,1868.56,89,True
+PROD040,Paper Boat Aamras,Baby Care,1654.56,436,True
+PROD041,Glucon-D 1kg,Groceries,1049.88,497,True
+PROD042,Complan Chocolate,Personal Care,1741.19,121,True
+PROD043,Boost 500g,Home Care,2378.86,447,True
+PROD044,Pediasure Vanilla,Beverages,2453.27,198,True
+PROD045,Whisper Ultra XL,Snacks,2445.71,193,True
+PROD046,Gillette Mach3,Dairy,725.91,72,False
+PROD047,Nivea Men,Bakery,2069.27,56,True
+PROD048,Old Spice Deodorant,Frozen Foods,1622.18,315,False
+PROD049,Park Avenue Perfume,Organic,173.92,180,True
+PROD050,Fogg Deodorant,Baby Care,358.51,299,True

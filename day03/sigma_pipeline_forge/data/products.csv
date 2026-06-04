@@ -1,0 +1,58 @@
+product_id,name,category,price,stock_quantity,brand,is_active
+PROD001,Samsung Galaxy S25,Smartphones,68302.33,164,Samsung,True
+PROD002,iPhone 16 Pro,Smartphones,58779.51,257,iPhone,True
+PROD003,OnePlus 13,Smartphones,58340.09,193,OnePlus,True
+PROD004,Pixel 9 Pro,Smartphones,139035.35,161,Pixel,True
+PROD005,Vivo X200,Smartphones,117564.96,212,Vivo,True
+PROD006,Realme 14 Pro,Laptops,161015.45,361,Realme,True
+PROD007,Redmi Note 14 Pro,Laptops,244588.58,476,Redmi,True
+PROD008,iQOO 13,Laptops,146829.09,472,iQOO,True
+PROD009,Motorola Edge 50,Laptops,204026.9,127,Motorola,True
+PROD010,Oppo Reno 13,Laptops,117225.8,335,Oppo,True
+PROD011,Dell XPS 15,Tablets,41315.81,396,Dell,True
+PROD012,MacBook Air M4,Tablets,84214.06,439,MacBook,True
+PROD013,HP Spectre x360,Tablets,25202.21,331,HP,True
+PROD014,Lenovo ThinkPad X1,Tablets,47437.95,235,Lenovo,True
+PROD015,Asus ZenBook 14,Tablets,53310.43,77,Asus,True
+PROD016,Acer Swift 5,Audio,11033.05,392,Acer,True
+PROD017,Microsoft Surface Pro 11,Audio,7826.22,412,Microsoft,True
+PROD018,MSI Prestige 16,Audio,34030.62,281,MSI,True
+PROD019,Razer Blade 15,Audio,10265.2,94,Razer,True
+PROD020,LG Gram 17,Audio,29039.28,256,LG,False
+PROD021,iPad Pro M4,Cameras,44184.19,455,iPad,True
+PROD022,Samsung Galaxy Tab S10,Cameras,32486.03,48,Samsung,True
+PROD023,OnePlus Pad 2,Cameras,87822.51,450,OnePlus,True
+PROD024,Lenovo Tab P12 Pro,Cameras,68836.4,213,Lenovo,False
+PROD025,Realme Pad X,Cameras,77298.2,197,Realme,True
+PROD026,Sony WH-1000XM6,Wearables,36722.56,145,Sony,True
+PROD027,Bose QC Ultra,Wearables,42021.17,354,Bose,True
+PROD028,Apple AirPods Pro 3,Wearables,25070.2,205,Apple,True
+PROD029,Sennheiser Momentum 4,Wearables,84745.69,65,Sennheiser,True
+PROD030,JBL Live 770,Wearables,43489.96,327,JBL,True
+PROD031,boAt Airdopes 800,Gaming,32193.18,478,boAt,True
+PROD032,Noise Buds VS204,Gaming,36677.92,335,Noise,True
+PROD033,Realme Buds Air 6,Gaming,50288.16,164,Realme,True
+PROD034,OnePlus Buds Pro 3,Gaming,9067.15,33,OnePlus,False
+PROD035,Nothing Ear 3,Gaming,18826.96,262,Nothing,True
+PROD036,Sony Alpha ZV-E10 II,Accessories,2261.0,285,Sony,True
+PROD037,Canon EOS R50,Accessories,3902.33,353,Canon,False
+PROD038,Fujifilm X-T50,Accessories,5723.63,286,Fujifilm,True
+PROD039,GoPro Hero 13,Accessories,6067.02,89,GoPro,True
+PROD040,DJI Osmo Pocket 3,Accessories,5411.91,436,DJI,True
+PROD041,Apple Watch Ultra 3,Smart Home,11682.61,497,Apple,True
+PROD042,Samsung Galaxy Watch 7,Smart Home,18031.31,121,Samsung,True
+PROD043,Garmin Fenix 8,Smart Home,23887.49,447,Garmin,True
+PROD044,Fitbit Charge 7,Smart Home,24570.87,198,Fitbit,True
+PROD045,Noise ColorFit Ultra,Smart Home,24501.46,193,Noise,True
+PROD046,PlayStation 5 Slim,Television,102590.95,72,PlayStation,False
+PROD047,Xbox Series X,Television,236926.82,56,Xbox,True
+PROD048,Nintendo Switch 2,Television,192217.59,315,Nintendo,False
+PROD049,Razer DeathAdder V3,Television,47391.74,180,Razer,True
+PROD050,Logitech G Pro X,Television,65851.35,299,Logitech,True
+PROD051,Amazon Echo Show 15,Smart Home,7161.04,120,Amazon,True
+PROD052,Google Nest Hub Max,Audio,12170.35,85,Google,True
+PROD053,Ring Video Doorbell Pro,Television,35694.71,449,Ring,False
+PROD054,Philips Hue Starter Kit,Tablets,71722.62,418,Philips,True
+PROD055,"Samsung QLED 65""",Smartphones,25398.03,193,Samsung,True
+PROD056,"LG OLED C4 55""",Audio,21020.59,18,LG,True
+PROD057,"Sony Bravia X90L 75""",Smartphones,24732.13,225,Sony,True

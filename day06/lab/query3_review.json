@@ -1,0 +1,35 @@
+{
+  "file": "queries/query3.sql",
+  "reviewed_at": "2026-05-25T15:23:32.467101",
+  "issues_found": 3,
+  "review": {
+    "issues": [
+      {
+        "severity": "Critical",
+        "category": "Correctness",
+        "title": "Incorrect calculation of failure rate",
+        "line": "failed_count / total_count * 100 as failure_rate",
+        "problem": "The failure rate is being calculated incorrectly because failed_count is not defined in the SELECT clause, leading to a potential division by zero error.",
+        "fix": "Use a subquery or a CASE statement to calculate the failure rate correctly."
+      },
+      {
+        "severity": "Medium",
+        "category": "Performance",
+        "title": "Correlated subquery",
+        "line": "SELECT COUNT(*) FROM fact_transactions f2 WHERE f2.status = 'FAILED' AND f2.transaction_date = t.transaction_date",
+        "problem": "The correlated subquery can be inefficient as it runs for each row in the outer query.",
+        "fix": "Use a JOIN or a derived table to avoid the correlated subquery."
+      },
+      {
+        "severity": "Low",
+        "category": "Readability",
+        "title": "Lack of comments",
+        "line": "Entire query",
+        "problem": "The query lacks comments explaining the logic, making it harder to understand.",
+        "fix": "Add comments to explain the purpose of each part of the query."
+      }
+    ],
+    "corrected_sql": "WITH daily_transactions AS (SELECT transaction_date, COUNT(*) AS total_count, SUM(CASE WHEN status = 'FAILED' THEN 1 ELSE 0 END) AS failed_count FROM fact_transactions GROUP BY transaction_date) SELECT transaction_date, failed_count, total_count, (failed_count * 100.0 / total_count) AS failure_rate FROM daily_transactions ORDER BY transaction_date;",
+    "summary": "The query had correctness issues with the failure rate calculation and performance issues with a correlated subquery. Readability was also improved by restructuring the query and adding comments."
+  }
+}

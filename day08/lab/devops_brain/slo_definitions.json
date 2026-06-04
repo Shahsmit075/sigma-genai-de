@@ -1,0 +1,43 @@
+{
+  "slo_context": {
+    "purpose": "To ensure the reliability and accuracy of financial data for timely and correct reporting.",
+    "review_cadence": "Quarterly",
+    "owner": "DataOps Team"
+  },
+  "data_freshness_slo": {
+    "threshold_hours": 24,
+<<<<<<< HEAD
+    "reasoning": "To ensure the dashboard has the most recent data by 08:00 IST.",
+    "breach_impact": "Stale data leads to incorrect financial reports for merchants."
+  },
+  "quality_threshold_slo": {
+    "threshold_pct": 99.9,
+    "reasoning": "To maintain high data integrity and reliability for financial reporting.",
+    "breach_impact": "Low-quality data can result in erroneous financial insights and decisions."
+=======
+    "reasoning": "To ensure the dashboard has the most recent data from the previous day's transactions.",
+    "breach_impact": "Stale data leads to incorrect financial reports affecting merchant decisions."
+  },
+  "quality_threshold_slo": {
+    "threshold_pct": 99.9,
+    "reasoning": "To maintain high data quality for accurate financial analysis.",
+    "breach_impact": "Low-quality data results in erroneous financial reports and potential compliance issues."
+>>>>>>> 83d5fc253a8457c3903da527641897b01c810c15
+  },
+  "row_count_slo": {
+    "min_rows": 17,
+    "max_rows": 25,
+    "buffer_pct": 20.0,
+    "reasoning": "To account for variability in daily transaction volumes while ensuring data completeness."
+  },
+  "pipeline_runtime_slo": {
+    "threshold_minutes": 120,
+<<<<<<< HEAD
+    "reasoning": "To allow sufficient time for data processing and ensure the dashboard is updated by 08:00 IST.",
+    "breach_impact": "Exceeding runtime can delay the dashboard update, impacting timely financial reporting."
+=======
+    "reasoning": "To allow sufficient time for data processing before the morning dashboard update.",
+    "breach_impact": "Exceeding runtime delays the dashboard update, causing delays in financial reporting."
+>>>>>>> 83d5fc253a8457c3903da527641897b01c810c15
+  }
+}
